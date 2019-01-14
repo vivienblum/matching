@@ -5,6 +5,17 @@ import cv2
 # DEV
 import pdb
 
+def color_to_string(color):
+    string = ""
+
+    for digit in color:
+        string += str(digit) + '|'
+
+    return string[:-1]
+
+def string_to_color(string):
+    return string.split('|')
+
 def _grab_image(path=None, stream=None, url=None):
 	# if the path is not None, then load the image from disk
 	if path is not None:
@@ -32,8 +43,13 @@ def _grab_image(path=None, stream=None, url=None):
 def get_average_color(url):
     # TEST
     url = settings.MEDIA_ROOT + '/item_image/flam.jpg'
-    
+
     image = _grab_image(url=url)
     avg_color_per_row = np.average(image, axis=0)
     avg_color = np.average(avg_color_per_row, axis=0)
+    # blue, green, red
     print(avg_color)
+    print(color_to_string(avg_color))
+    print(string_to_color(color_to_string(avg_color)))
+
+    return avg_color
