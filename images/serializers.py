@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from django.conf import settings
-from utils.images import get_average_color
+from utils.image import get_average_color
 from .models import Collection, Item
 
 class CollectionSerializer(ModelSerializer):
