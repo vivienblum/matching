@@ -10,3 +10,11 @@ class ItemSerializer(ModelSerializer):
     class Meta:
         model = Item
         fields = ('id', 'name', 'image', 'collection')
+
+    def create(self, validated_data):
+        item = Item(**validated_data)
+
+        # TODO calculate color 
+
+        item.save()
+        return item
