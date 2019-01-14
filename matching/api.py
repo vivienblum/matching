@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from shelf.views import CollectionViewSet, ItemViewSet
+from images.views import CollectionViewSet, ItemViewSet
 
 
 router = DefaultRouter()
