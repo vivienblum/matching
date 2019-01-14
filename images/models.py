@@ -19,3 +19,8 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+class Match(object):
+    def __init__(self, **kwargs):
+        for field in ('image', 'collection'):
+            setattr(self, field, kwargs.get(field, None))
