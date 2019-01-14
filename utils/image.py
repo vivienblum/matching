@@ -37,7 +37,7 @@ def get_average_color(url):
     image = _grab_image(url=url)
     avg_color_per_row = np.average(image, axis=0)
     avg_color = np.average(avg_color_per_row, axis=0)
-    
+
     print(avg_color)
     print(color_to_string(avg_color))
     print(string_to_color(color_to_string(avg_color)))
