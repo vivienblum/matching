@@ -11,14 +11,13 @@ class CollectionSerializer(ModelSerializer):
 class ItemSerializer(ModelSerializer):
     class Meta:
         model = Item
-        fields = ('id', 'name', 'image', 'collection')
+        fields = ('id', 'name', 'image', 'collection', 'color')
 
     def create(self, validated_data):
         item = Item(**validated_data)
 
-        # TODO calculate color
-        # item.name = validated_data['image']
-        # request
         item.save()
-        get_average_color(item.image)
+        item.color = get_average_color(item.image)
+        item.save()
+        
         return item
