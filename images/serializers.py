@@ -1,4 +1,6 @@
 from rest_framework.serializers import ModelSerializer
+from django.conf import settings
+from utils.image import get_average_color
 from .models import Collection, Item
 
 class CollectionSerializer(ModelSerializer):
@@ -9,4 +11,13 @@ class CollectionSerializer(ModelSerializer):
 class ItemSerializer(ModelSerializer):
     class Meta:
         model = Item
-        fields = ('id', 'name', 'image', 'collection')
+        fields = ('id', 'name', 'image', 'collection', 'color')
+
+    def create(self, validated_data):
+        item = Item(**validated_data)
+
+        item.save()
+        item.color = get_average_color(item.image)
+        item.save()
+        
+        return item
