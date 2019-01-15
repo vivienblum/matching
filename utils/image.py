@@ -113,8 +113,8 @@ def match(image):
     h = image.shape[0]
     w = image.shape[1]
 
-    if h > MAX_SIZE or v > MAX_SIZE:
-		return false
+    if h > MAX_SIZE or w > MAX_SIZE:
+		return False
 
     items = []
     pattern = np.zeros(shape=(h, w), dtype=int)
