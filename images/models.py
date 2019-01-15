@@ -10,6 +10,11 @@ class Collection(models.Model):
     def __str__(self):
         return self.name
 
+class ItemManager(models.Manager):
+    def get_item_color(self, color, collection):
+        delta = 100
+        return self.filter(collection=collection).filter(blue__lte=color[0] + delta ).filter(blue__gte=color[0] - delta ).filter(green__lte=color[0] + delta ).filter(green__gte=color[0] - delta ).filter(red__lte=color[0] + delta ).filter(red__gte=color[0] - delta )
+
 class Item(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='item_image')
@@ -18,6 +23,7 @@ class Item(models.Model):
     green = models.SmallIntegerField(null=True, blank=True)
     red = models.SmallIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    objects = ItemManager()
 
     def __str__(self):
         return self.name

@@ -54,14 +54,15 @@ def pixelate(image):
 		if x < w -1:
 			width += 0 if np.array_equal(image[0, x], image[0, x+1]) else 1
 
-    print height, width
-
     return cv2.resize(image, (width, height))
 
-	# loop over the image, pixel by pixel
-    # for y in range(0, h):
-    #     for x in range(0, w):
-    #         # threshold the pixel
-    #         print image[y, x]
+def match(image):
+    image = pixelate(image)
 
-    return True
+    h = image.shape[0]
+    w = image.shape[1]
+
+    for y in range(0, h):
+        for x in range(0, w):
+            # threshold the pixel
+            print image[y, x]

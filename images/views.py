@@ -8,7 +8,7 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework.response import Response
 from .serializers import CollectionSerializer, ItemSerializer, MatchSerializer
 from .models import Collection, Item
-from utils.image import pixelate, get_average_color
+from utils.image import pixelate, get_average_color, match
 
 class CollectionViewSet(NestedViewSetMixin, ModelViewSet):
     serializer_class = CollectionSerializer
@@ -33,5 +33,5 @@ class MatchViewSet(ModelViewSet):
     serializer_class = MatchSerializer
 
     def create(self, request):
-        pixelate(request.FILES.get('image', None))
+        match(request.FILES.get('image', None))
         return Response(True)
