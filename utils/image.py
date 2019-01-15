@@ -31,11 +31,8 @@ def _grab_image(path=None, stream=None, url=None):
 	# return the image
 	return image
 
-def get_average_color(url):
-    # TEST
-    url = settings.MEDIA_ROOT + '/item_image/flam.jpg'
-
-    image = _grab_image(url=url)
+def get_average_color(image):
+    image = _grab_image(stream=image)
     avg_color_per_row = np.average(image, axis=0)
     avg_color = np.average(avg_color_per_row, axis=0)
 
