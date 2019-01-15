@@ -66,4 +66,4 @@ def match(image):
         for x in range(0, w):
             # threshold the pixel
             # print image[y, x]
-			print Item.objects.get_item_color(image[y, x], 1)
+			print Item.objects.get_item_color(image[y, x], 5)
