@@ -38,21 +38,6 @@ def get_average_color(image):
 
     return avg_color
 
-
-def threshold_slow(T, image):
-    # grab the image dimensions
-    h = image.shape[0]
-    w = image.shape[1]
-
-    # loop over the image, pixel by pixel
-    for y in range(0, h):
-        for x in range(0, w):
-            # threshold the pixel
-            image[y, x] = 255 if image[y, x] >= T else 0
-
-    # return the thresholded image
-    return image
-
 def pixelate(image):
     image = _grab_image(stream=image)
     h = image.shape[0]
@@ -78,9 +63,5 @@ def pixelate(image):
     #     for x in range(0, w):
     #         # threshold the pixel
     #         print image[y, x]
-
-
-    # plt.imshow(image, cmap="gray")
-    # cv2.imwrite('test.png', image)
 
     return True
