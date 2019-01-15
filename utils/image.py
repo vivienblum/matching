@@ -3,7 +3,7 @@ import numpy as np
 import urllib
 import cv2
 from .format import *
-import cython
+from images.models import Item
 # DEV
 import pdb
 
@@ -65,4 +65,5 @@ def match(image):
     for y in range(0, h):
         for x in range(0, w):
             # threshold the pixel
-            print image[y, x]
+            # print image[y, x]
+			print Item.objects.get_item_color(image[y, x], 1)
