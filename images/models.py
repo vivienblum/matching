@@ -13,7 +13,7 @@ class Collection(models.Model):
 class ItemManager(models.Manager):
     def get_item_color(self, color, collection):
         delta = 50
-        return self.filter(collection=collection).filter(blue__lte=color[0] + delta ).filter(blue__gte=color[0] - delta ).filter(green__lte=color[0] + delta ).filter(green__gte=color[0] - delta ).filter(red__lte=color[0] + delta ).filter(red__gte=color[0] - delta )
+        return self.filter(collection=collection).filter(blue__lte=color[0] + delta ).filter(blue__gte=color[0] - delta ).filter(green__lte=color[0] + delta ).filter(green__gte=color[0] - delta ).filter(red__lte=color[0] + delta ).filter(red__gte=color[0] - delta).first()
 
 class Item(models.Model):
     name = models.CharField(max_length=200)

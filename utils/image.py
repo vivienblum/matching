@@ -62,8 +62,20 @@ def match(image):
     h = image.shape[0]
     w = image.shape[1]
 
+    items = []
+    pattern = np.zeros(shape=(h, w))
+
     for y in range(0, h):
         for x in range(0, w):
             # threshold the pixel
             # print image[y, x]
-			print Item.objects.get_item_color(image[y, x], 5)
+			item = Item.objects.get_item_color(image[y, x], 5)
+			if item != None:
+				items.append(item)
+				pattern[y, x] = item.id
+				# print item.id
+			else:
+				pattern[y, x] = -1
+				# print "No item matches"
+
+    print pattern
