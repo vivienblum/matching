@@ -7,6 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework_extensions.mixins import NestedViewSetMixin
 from .serializers import CollectionSerializer, ItemSerializer, MatchSerializer
 from .models import Collection, Item
+from utils.image import pixelate
 
 class CollectionViewSet(NestedViewSetMixin, ModelViewSet):
     serializer_class = CollectionSerializer
@@ -20,4 +21,6 @@ class MatchViewSet(ModelViewSet):
     serializer_class = MatchSerializer
 
     def create(self, request):
+        print request.FILES
+        pixelate('test')
         return JsonResponse(True, safe=False)
