@@ -53,11 +53,8 @@ def threshold_slow(T, image):
     # return the thresholded image
     return image
 
-def pixelate(url):
-    # TEST
-    url = settings.MEDIA_ROOT + '/item_image/pixel.png'
-
-    image = _grab_image(url=url)
+def pixelate(image):
+    image = _grab_image(stream=image)
     h = image.shape[0]
     w = image.shape[1]
 

@@ -33,6 +33,5 @@ class MatchViewSet(ModelViewSet):
     serializer_class = MatchSerializer
 
     def create(self, request):
-        print request.FILES
-        pixelate('test')
+        pixelate(request.FILES.get('image', None))
         return Response(True)
