@@ -18,20 +18,13 @@ class ItemViewSet(NestedViewSetMixin, ModelViewSet):
     serializer_class = ItemSerializer
     queryset = Item.objects.all()
 
-    # def create(self, request):
-    #     # image = request.FILES.get('image', None)
-    #     # pixelate('test')
-    #     # ItemSerializer(request.data)
-    #     # print get_average_color(image)
-    #     serializer = ItemSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 class MatchViewSet(ModelViewSet):
     serializer_class = MatchSerializer
 
     def create(self, request):
-        match(request.FILES.get('image', None))
-        return Response(True)
+        res = match(request.FILES.get('image', None))
+
+        if res:
+            return Response({'pattern': [], 'items': []}, status=200)
+        else:
+            return Response({'error': 'The image is too big!'}, status=429)
