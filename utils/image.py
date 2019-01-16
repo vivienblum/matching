@@ -44,12 +44,12 @@ def pixelate(image):
     width = 0
 
     for y in range(0, h):
-		if y < h -1:
-			height += 0 if np.array_equal(image[y, 0], image[y+1, 0]) else 1
+        if y < h -1:
+            height += 0 if np.array_equal(image[y, 0], image[y+1, 0]) else 1
 
     for x in range(0, w):
-		if x < w -1:
-			width += 0 if np.array_equal(image[0, x], image[0, x+1]) else 1
+        if x < w -1:
+            width += 0 if np.array_equal(image[0, x], image[0, x+1]) else 1
 
     return cv2.resize(image, (width, height))
 
@@ -60,19 +60,19 @@ def match(image, collection, delta):
     w = image.shape[1]
 
     if h > MAX_SIZE or w > MAX_SIZE:
-		return False
+        return False
 
     items = []
     pattern = np.zeros(shape=(h, w), dtype=int)
 
     for y in range(0, h):
         for x in range(0, w):
-			item = Item.objects.get_item_color(image[y, x], collection, delta)
-			if item != None:
-				if item not in items:
-					items.append(item)
-				pattern[y, x] = item.id
-			else:
-				pattern[y, x] = -1
+            item = Item.objects.get_item_color(image[y, x], collection, delta)
+            if item != None:
+                if item not in items:
+                    items.append(item)
+                pattern[y, x] = item.id
+            else:
+                pattern[y, x] = -1
 
     return pattern, items
