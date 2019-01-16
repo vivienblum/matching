@@ -3,4 +3,5 @@ gunicorn
 djangorestframework
 drf-extensions
 numpy
+opencv-python
 django-heroku
