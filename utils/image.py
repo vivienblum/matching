@@ -106,11 +106,10 @@ def draw_image(items, pattern):
 
     # cv2.imwrite('test.png', image_out)
 
-def match(data):
+def match(image, collection, delta):
     # print data
-    image = pixelate(_grab_image(stream=data.image))
-    collection = data.collection
-    delta = data.delta
+    image = pixelate(_grab_image(stream=image))
+    # delta = delta
     # image = pixelate(data['image'])
     # collection = data['collection']
     # delta = data['delta']

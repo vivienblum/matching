@@ -26,16 +26,19 @@ class MatchViewSet(ModelViewSet):
     def create(self, request):
         # print request.data
         # print MatchSerializer(request.data, many=True).data
-        data = [{'image': request.FILES.get('image', None), 'collection': request.data.get('collection', None), 'delta': request.data.get('delta', None)}]
-        serializer = MatchSerializer(data, many=True)
-        res = MatchSerializer(data, many=True).data
-        return Response(res)
-        if serializer.is_valid():
-            serializer.save()
+        # data = [{'image': request.FILES.get('image', None), 'collection': request.data.get('collection', None), 'delta': request.data.get('delta', None)}]
+        # print data
+        # serializer = MatchSerializer(data, many=True)
+        # res = MatchSerializer(data, many=True).data
+        # return Response(res)
+        # if serializer.is_valid():
+        #     serializer.save()
             # return Response(serializer.data)
-            res = match(serializer.data)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        image = request.FILES.get('image', None)
+        collection = request.data.get('collection', None)
+        delta = request.data.get('delta', None)
+        res = match(image, collection, delta)
 
         if res:
             pattern, items = res
