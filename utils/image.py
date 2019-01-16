@@ -41,7 +41,6 @@ def get_average_color(image):
     return avg_color
 
 def pixelate(image):
-    image = _grab_image(stream=image)
     h = image.shape[0]
     w = image.shape[1]
 
@@ -107,8 +106,14 @@ def draw_image(items, pattern):
 
     # cv2.imwrite('test.png', image_out)
 
-def match(image):
-    image = pixelate(image)
+def match(data):
+    # print data
+    image = pixelate(_grab_image(stream=data.image))
+    collection = data.collection
+    delta = data.delta
+    # image = pixelate(data['image'])
+    # collection = data['collection']
+    # delta = data['delta']
 
     h = image.shape[0]
     w = image.shape[1]
@@ -121,15 +126,15 @@ def match(image):
 
     for y in range(0, h):
         for x in range(0, w):
-            # print image[y, x]
-				item = Item.objects.get_item_color(image[y, x], 5)
-				if item != None:
-					if item not in items:
-						items.append(item)
-					pattern[y, x] = item.id
-					# print item.id
-				else:
-					pattern[y, x] = -1
+			item = Item.objects.get_item_color(image[y, x], collection, delta)
+			# item = Item.objects.get_item_color(image[y, x], 5)
+			if item != None:
+				if item not in items:
+					items.append(item)
+				pattern[y, x] = item.id
+				# print item.id
+			else:
+				pattern[y, x] = -1
 				# print "No item matches"
 
     return pattern, items

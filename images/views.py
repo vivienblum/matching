@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import status
 from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework.response import Response
 from .serializers import CollectionSerializer, ItemSerializer, MatchSerializer
@@ -23,7 +24,18 @@ class MatchViewSet(ModelViewSet):
     serializer_class = MatchSerializer
 
     def create(self, request):
-        res = match(request.FILES.get('image', None))
+        # print request.data
+        # print MatchSerializer(request.data, many=True).data
+        data = [{'image': request.FILES.get('image', None), 'collection': request.data.get('collection', None), 'delta': request.data.get('delta', None)}]
+        serializer = MatchSerializer(data, many=True)
+        res = MatchSerializer(data, many=True).data
+        return Response(res)
+        if serializer.is_valid():
+            serializer.save()
+            # return Response(serializer.data)
+            res = match(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         if res:
             pattern, items = res

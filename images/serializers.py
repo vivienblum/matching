@@ -1,4 +1,5 @@
-from rest_framework.serializers import ModelSerializer, Serializer, ImageField, IntegerField
+from rest_framework.serializers import ModelSerializer, Serializer
+from django.db import models
 from django.conf import settings
 from utils.image import get_average_color
 from .models import Collection, Item, Match
@@ -26,8 +27,9 @@ class ItemSerializer(ModelSerializer):
         return item
 
 class MatchSerializer(Serializer):
-    image = ImageField()
-    collection = IntegerField()
+    image = models.ImageField()
+    collection = models.IntegerField()
+    delta = models.SmallIntegerField(null=True, blank=True)
 
     def create(self, validated_data):
         return Match(**validated_data)
