@@ -1,1 +1,1 @@
-web: gunicorn matching:application --log-file -
+web: gunicorn images:application --log-file -
