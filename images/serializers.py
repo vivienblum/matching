@@ -33,8 +33,3 @@ class MatchSerializer(Serializer):
 
     def create(self, validated_data):
         return Match(**validated_data)
-
-    def update(self, instance, validated_data):
-        for field, value in validated_data.items():
-            setattr(instance, field, value)
-        return instance
