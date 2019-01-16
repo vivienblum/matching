@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from .serializers import CollectionSerializer, ItemSerializer, MatchSerializer
 from .models import Collection, Item
 from utils.image import pixelate, get_average_color, match
+# import json
 
 class CollectionViewSet(NestedViewSetMixin, ModelViewSet):
     serializer_class = CollectionSerializer
@@ -27,6 +28,6 @@ class MatchViewSet(ModelViewSet):
         if res:
             pattern, items = res
             serializer_item = ItemSerializer(items, many=True)
-            return Response({'pattern': [], 'items': serializer_item.data}, status=200)
+            return Response({'pattern': pattern, 'items': serializer_item.data}, status=200)
         else:
             return Response({'error': 'The image is too big!'}, status=429)
