@@ -82,7 +82,7 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['fast-refuge-44605.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['match-images.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Password validation
