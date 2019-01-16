@@ -25,6 +25,8 @@ class MatchViewSet(ModelViewSet):
         res = match(request.FILES.get('image', None))
 
         if res:
-            return Response({'pattern': [], 'items': []}, status=200)
+            pattern, items = res
+            serializer_item = ItemSerializer(items, many=True)
+            return Response({'pattern': [], 'items': serializer_item.data}, status=200)
         else:
             return Response({'error': 'The image is too big!'}, status=429)
