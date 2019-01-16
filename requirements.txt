@@ -2,4 +2,5 @@ django
 gunicorn
 djangorestframework
 drf-extensions
+numpy
 django-heroku
