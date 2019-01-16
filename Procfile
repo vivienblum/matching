@@ -1,1 +1,1 @@
-web: gunicorn matching.wsgi --log-file -
+web: gunicorn matching:images matching.wsgi --log-file -
