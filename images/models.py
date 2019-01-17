@@ -70,31 +70,8 @@ class ItemManager(models.Manager):
             if default <= min:
                 min = default
                 best_item = item
-                
+
         return best_item
-
-
-        # # print (list(set().intersection(matches_blue, matches_green, matches_red)))
-        #
-        # return (
-        #     # self.filter(collection=collection)
-        #     #         .filter(blue__lte=color[0] + delta)
-        #     #         .filter(blue__gte=color[0] - delta)
-        #     #         .filter(green__lte=color[1] + delta)
-        #     #         .filter(green__gte=color[1] - delta)
-        #     #         .filter(red__lte=color[2] + delta)
-        #     #         .filter(red__gte=color[2] - delta)
-        #     #         .first()
-        #     #     )
-        #     self.filter(collection=collection)
-        #             .filter(blue__lte=color[0])
-        #             .filter(blue__gte=color[0] - delta)
-        #             .filter(green__lte=color[1] + delta)
-        #             .filter(green__gte=color[1] - delta)
-        #             .filter(red__lte=color[2] + delta)
-        #             .filter(red__gte=color[2] - delta)
-        #             .first()
-        #         )
 
 class Item(models.Model):
     name = models.CharField(max_length=200)

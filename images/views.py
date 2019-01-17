@@ -30,8 +30,6 @@ class MatchViewSet(ModelViewSet):
 
         if res:
             pattern, items = res
-            # print(items)
-            print(pattern)
             serializer_item = ItemSerializer(items, many=True)
             return Response({'pattern': pattern, 'items': serializer_item.data}, status=200)
         else:
