@@ -17,7 +17,7 @@ class ItemManager(models.Manager):
         if delta == None:
             delta = 25
         delta = int(delta)
-        return self.filter(collection=collection).filter(blue__lte=color[0] + delta ).filter(blue__gte=color[0] - delta ).filter(green__lte=color[0] + delta ).filter(green__gte=color[0] - delta ).filter(red__lte=color[0] + delta ).filter(red__gte=color[0] - delta).first()
+        return self.filter(collection=collection).filter(blue__lte=color[0] + delta ).filter(blue__gte=color[0] - delta ).filter(green__lte=color[1] + delta ).filter(green__gte=color[1] - delta ).filter(red__lte=color[2] + delta ).filter(red__gte=color[2] - delta).first()
 
 class Item(models.Model):
     name = models.CharField(max_length=200)
