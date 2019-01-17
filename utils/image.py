@@ -14,7 +14,6 @@ def _grab_image(path=None, stream=None, url=None):
 	# otherwise, the image does not reside on disk
 	else:
 		# if the URL is not None, then download the image
-		print(stream)
 		if url is not None:
 			resp = urllib.urlopen(url)
 			data = resp.read()

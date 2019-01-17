@@ -25,6 +25,7 @@ class MatchViewSet(ModelViewSet):
         image = request.FILES.get('image', None)
         collection = request.data.get('collection', None)
         delta = request.data.get('delta', None)
+
         res = match(image, collection, delta)
 
         if res:
