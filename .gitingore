@@ -1,3 +1,6 @@
 ./matching/media/item_image/*
 /matching/media/item_image/*
 matching/media/item_image/*
+matching/__pycache__/*
+images/__pycache__/*
+utils/__pycache__/*
