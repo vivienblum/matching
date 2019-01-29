@@ -40,18 +40,26 @@ def pixelate(image):
     h = image.shape[0]
     w = image.shape[1]
 
-    height = 0
-    width = 0
+    maxHeight = 0
+    maxWidth = 0
 
     for y in range(0, h):
-        if y < h -1:
-            height += 0 if np.array_equal(image[y, 0], image[y+1, 0]) else 1
+        tmpWidth = 1
+        for x in range(0, w):
+            if x < w -1:
+                tmpWidth += 0 if np.array_equal(image[y, x], image[y, x+1]) else 1
+        if tmpWidth >= maxWidth:
+            maxWidth = tmpWidth
 
     for x in range(0, w):
-        if x < w -1:
-            width += 0 if np.array_equal(image[0, x], image[0, x+1]) else 1
+        tmpHeight = 1
+        for y in range(0, h):
+            if y < h -1:
+                tmpHeight += 0 if np.array_equal(image[y, x], image[y+1, x]) else 1
+        if tmpHeight >= maxHeight:
+            maxHeight = tmpHeight
 
-    return cv2.resize(image, (width, height))
+    return cv2.resize(image, (maxWidth, maxHeight))
 
 def match(image, collection, delta):
     image = pixelate(_grab_image(stream=image))
