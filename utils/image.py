@@ -4,7 +4,7 @@ import urllib
 import cv2
 from images.models import Item
 
-MAX_SIZE = 100
+MAX_SIZE = 10000
 
 def _grab_image(path=None, stream=None, url=None):
 	# if the path is not None, then load the image from disk
@@ -67,7 +67,7 @@ def match(image, collection, delta):
     h = image.shape[0]
     w = image.shape[1]
 
-    if h > MAX_SIZE or w > MAX_SIZE:
+    if h * w > MAX_SIZE:
         return False
 
     items = []
