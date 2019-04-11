@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('images', '0002_item_color'),
+        # ('images', '0002_item_color'),
     ]
 
     operations = [
