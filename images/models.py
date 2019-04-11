@@ -12,6 +12,9 @@ class Collection(models.Model):
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = "collections"
+
     def __str__(self):
         return self.name
 
@@ -53,6 +56,9 @@ class Item(models.Model):
     red = models.SmallIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     objects = ItemManager()
+
+    class Meta:
+        db_table = "items"
 
     def __str__(self):
         return self.name
