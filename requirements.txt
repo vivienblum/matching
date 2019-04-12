@@ -7,3 +7,4 @@ opencv-python
 pillow
 django-cors-headers
 django-heroku
+django-filter

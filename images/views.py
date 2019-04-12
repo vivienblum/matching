@@ -9,10 +9,14 @@ from rest_framework.response import Response
 from .serializers import CollectionSerializer, ItemSerializer, MatchSerializer
 from .models import Collection, Item
 from utils.image import pixelate, get_average_color, match
+from django_filters.rest_framework import DjangoFilterBackend
 
 class CollectionViewSet(NestedViewSetMixin, ModelViewSet):
     serializer_class = CollectionSerializer
     queryset = Collection.objects.all()
+
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('name', 'available')
 
 class ItemViewSet(NestedViewSetMixin, ModelViewSet):
     serializer_class = ItemSerializer
