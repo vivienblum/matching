@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer, Serializer
 from django.db import models
+from django.db.models import Exists, OuterRef
 from django.conf import settings
 from utils.image import get_average_color
 from .models import Collection, Item, Match
@@ -17,14 +18,18 @@ class ItemSerializer(ModelSerializer):
     def create(self, validated_data):
         item = Item(**validated_data)
 
-        item.save()
         color = get_average_color(item.image)
-        item.blue = color[0]
-        item.green = color[1]
-        item.red = color[2]
-        item.save()
+        itemDb = Item.objects.filter(blue=color[0], green=color[1], red=color[2], collection=item.collection)
 
-        return item
+        if itemDb:
+            return itemDb[0]
+        else:
+            item.blue = color[0]
+            item.green = color[1]
+            item.red = color[2]
+            item.save()
+
+            return item
 
 class MatchSerializer(Serializer):
     image = models.ImageField()
