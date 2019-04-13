@@ -3,6 +3,7 @@ import numpy as np
 import urllib
 import cv2
 from images.models import Item
+from celery import shared_task
 
 MAX_SIZE = 10000
 
@@ -61,6 +62,7 @@ def pixelate(image):
 
     return cv2.resize(image, (maxWidth, maxHeight))
 
+@shared_task
 def match(image, collection, delta):
     image = pixelate(_grab_image(stream=image))
 
@@ -83,4 +85,5 @@ def match(image, collection, delta):
             else:
                 pattern[y, x] = -1
 
-    return pattern, items
+    # return pattern, items
+    return True

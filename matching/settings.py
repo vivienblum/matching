@@ -79,6 +79,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
+CELERY_BROKER_URL = 'redis://localhost'
+
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
