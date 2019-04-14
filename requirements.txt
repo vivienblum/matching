@@ -11,3 +11,4 @@ django-filter
 rq
 redis
 celery
+jsonfield

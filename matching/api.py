@@ -13,4 +13,6 @@ collections_routers.register(
     base_name='collection-items',
     parents_query_lookups=['collection'])
 
-router.register(r'matches', MatchViewSet, base_name='matches')
+matches_routers = router.register('matches', MatchViewSet)
+
+# router.register(r'matches', MatchViewSet, base_name='matches')

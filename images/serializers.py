@@ -4,11 +4,6 @@ from django.db.models import Exists, OuterRef
 from django.conf import settings
 from utils.image import get_average_color, match
 from .models import Collection, Item, Match
-from celery import shared_task
-
-@shared_task
-def build_something():
-  return 3
 
 class CollectionSerializer(ModelSerializer):
     class Meta:
@@ -23,11 +18,6 @@ class ItemSerializer(ModelSerializer):
     def create(self, validated_data):
         item = Item(**validated_data)
 
-        # res = q.enqueue(match, item.image, 1, 100)
-        # res = q.enqueue('serializers.count_words_at_url', "item.image, 1, 100")
-        # res = q.enqueue(count_words_a&t_url, "item.image, 1, 100")
-        build_something.apply_async()
-
         color = get_average_color(item.image)
         itemDb = Item.objects.filter(blue=color[0], green=color[1], red=color[2], collection=item.collection)
 
@@ -41,10 +31,13 @@ class ItemSerializer(ModelSerializer):
 
             return item
 
-class MatchSerializer(Serializer):
-    image = models.ImageField()
-    collection = models.IntegerField()
-    delta = models.SmallIntegerField(null=True, blank=True)
-
-    def create(self, validated_data):
-        return Match(**validated_data)
+class MatchSerializer(ModelSerializer):
+    class Meta:
+        model = Match
+        fields = ('id', 'image', 'delta', 'collection', 'finished', 'rows_progress', 'pattern', 'items')
+    # image = models.ImageField()
+    # collection = models.IntegerField()
+    # delta = models.SmallIntegerField(null=True, blank=True)
+    #
+    # def create(self, validated_data):
+    #     return Match(**validated_data)
