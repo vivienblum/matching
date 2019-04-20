@@ -8,7 +8,7 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework.response import Response
 from .serializers import CollectionSerializer, ItemSerializer, MatchSerializer
 from .models import Collection, Item, Match
-from utils.image import pixelate, get_average_color, match
+from utils.image import pixelate, get_average_color
 from django_filters.rest_framework import DjangoFilterBackend
 
 class CollectionViewSet(NestedViewSetMixin, ModelViewSet):

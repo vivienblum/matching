@@ -59,12 +59,23 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+    def as_json(self):
+        print(self.image.url)
+        return dict(
+            id=self.id,
+            image=self.image.url,
+            name=self.name,
+            blue=self.blue,
+            green=self.green,
+            red=self.red)
+
 class Match(models.Model):
     image = models.ImageField(upload_to='match_image')
     collection = models.ForeignKey(Collection, related_name='collection_match', null=True, on_delete=models.SET_NULL)
     delta = models.IntegerField(default=DELTA)
     finished = models.BooleanField(default=True)
-    rows_progress = models.FloatField(default=0)
+    rows_done = models.PositiveSmallIntegerField(default=0)
+    nb_rows = models.FloatField(default=0)
     pattern = JSONField(null=True)
     items = JSONField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -92,8 +103,3 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     if not old_file == new_file:
         if os.path.isfile(old_file.path):
             os.remove(old_file.path)
-
-# class Match(object):
-#     def __init__(self, **kwargs):
-#         for field in ('image', 'collection', 'delta'):
-#             setattr(self, field, kwargs.get(field, None))

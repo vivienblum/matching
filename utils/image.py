@@ -2,8 +2,10 @@ from django.conf import settings
 import numpy as np
 import urllib
 import cv2
-from images.models import Item
+from images.models import Item, Match
 from celery import shared_task
+import codecs, json
+from django.core import serializers
 
 MAX_SIZE = 10000
 
@@ -37,7 +39,8 @@ def get_average_color(image):
 
     return avg_color
 
-def pixelate(image):
+def pixelate(match):
+    image = _grab_image(stream=match.image)
     h = image.shape[0]
     w = image.shape[1]
 
@@ -59,12 +62,16 @@ def pixelate(image):
                 tmpHeight += 0 if np.array_equal(image[y, x], image[y+1, x]) else 1
         if tmpHeight >= maxHeight:
             maxHeight = tmpHeight
-
+    match.nb_rows = maxHeight
+    match.save()
     return cv2.resize(image, (maxWidth, maxHeight))
 
 @shared_task
-def match(image, collection, delta):
-    image = pixelate(_grab_image(stream=image))
+def match_images(id):
+    match = Match.objects.get(pk=id)
+    image = pixelate(match)
+    collection = match.collection
+    delta = match.delta
 
     h = image.shape[0]
     w = image.shape[1]
@@ -76,6 +83,8 @@ def match(image, collection, delta):
     pattern = np.zeros(shape=(h, w), dtype=int)
 
     for y in range(0, h):
+        match.rows_done = match.rows_done+1
+        match.save()
         for x in range(0, w):
             item = Item.objects.get_item_color(image[y, x], collection, delta)
             if item != None:
@@ -86,4 +95,10 @@ def match(image, collection, delta):
                 pattern[y, x] = -1
 
     # return pattern, items
+    pattern_response = np.array(pattern).tolist()
+    match.pattern = json.dumps({"data": pattern_response})
+    items_response = [item.as_json() for item in items]
+    match.items = json.dumps(items_response)
+    match.finished = True
+    match.save()
     return True

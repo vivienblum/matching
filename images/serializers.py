@@ -2,7 +2,7 @@ from rest_framework.serializers import ModelSerializer, Serializer
 from django.db import models
 from django.db.models import Exists, OuterRef
 from django.conf import settings
-from utils.image import get_average_color, match
+from utils.image import get_average_color, match_images
 from .models import Collection, Item, Match
 
 class CollectionSerializer(ModelSerializer):
@@ -34,10 +34,11 @@ class ItemSerializer(ModelSerializer):
 class MatchSerializer(ModelSerializer):
     class Meta:
         model = Match
-        fields = ('id', 'image', 'delta', 'collection', 'finished', 'rows_progress', 'pattern', 'items')
-    # image = models.ImageField()
-    # collection = models.IntegerField()
-    # delta = models.SmallIntegerField(null=True, blank=True)
-    #
-    # def create(self, validated_data):
-    #     return Match(**validated_data)
+        fields = ('id', 'image', 'delta', 'collection', 'finished', 'rows_done', 'nb_rows', 'pattern', 'items')
+
+    def create(self, validated_data):
+        matchItem = Match(**validated_data)
+        matchItem.save()
+        match_images.delay(matchItem.id)
+
+        return matchItem
