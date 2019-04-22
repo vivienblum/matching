@@ -2,6 +2,7 @@ from django.conf import settings
 import numpy as np
 import urllib
 import cv2
+import re
 from images.models import Item, Match
 from celery import shared_task
 import codecs, json

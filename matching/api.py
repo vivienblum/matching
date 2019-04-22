@@ -14,5 +14,3 @@ collections_routers.register(
     parents_query_lookups=['collection'])
 
 matches_routers = router.register('matches', MatchViewSet)
-
-# router.register(r'matches', MatchViewSet, base_name='matches')
