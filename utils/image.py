@@ -39,8 +39,8 @@ def get_average_color(image):
 
     return avg_color
 
-def pixelate(image):
-    image = _grab_image(stream=image)
+def pixelate(match):
+    image = _grab_image(stream=match.image)
     h = image.shape[0]
     w = image.shape[1]
 
@@ -69,7 +69,7 @@ def pixelate(image):
 @shared_task
 def match_images(id):
     match = Match.objects.get(pk=id)
-    image = pixelate(match.image)
+    image = pixelate(match)
     collection = match.collection
     delta = match.delta
 
