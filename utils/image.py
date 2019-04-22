@@ -1,8 +1,8 @@
 from django.conf import settings
 import numpy as np
 import urllib
+import urllib.request
 import cv2
-import re
 from images.models import Item, Match
 from celery import shared_task
 import codecs, json
@@ -19,7 +19,7 @@ def _grab_image(path=None, stream=None, url=None):
 	else:
 		# if the URL is not None, then download the image
 		if url is not None:
-			resp = urllib.urlopen(url)
+			resp = urllib.request.urlopen(url)
 			data = resp.read()
 
 		# if the stream is not None, then the image has been uploaded
@@ -41,7 +41,9 @@ def get_average_color(image):
     return avg_color
 
 def pixelate(match):
-    image = _grab_image(stream=match.image)
+    pathImage = "https://match-images.herokuapp.com" + match.image.url
+    print(pathImage)
+    image = _grab_image(url=pathImage)
     h = image.shape[0]
     w = image.shape[1]
 
