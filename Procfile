@@ -1,2 +1,2 @@
 web: gunicorn matching.wsgi:application --log-file -
-worker: python matching.celery
+worker: celery -A matching.celery worker -l
