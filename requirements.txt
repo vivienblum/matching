@@ -12,3 +12,7 @@ rq
 redis
 celery
 jsonfield
+boto3
+boto
+django-storages
+django-storages-redux

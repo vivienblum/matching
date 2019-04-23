@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'images',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -140,16 +141,20 @@ USE_L10N = True
 
 USE_TZ = True
 
+AWS_STORAGE_BUCKET_NAME = 'match-images-assets'
+AWS_ACCESS_KEY_ID = 'AKIAUZOFMDIJ2QD27H63'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_S3_HOST = 's3.eu-west-3.amazonaws.com'
+AWS_S3_URL = 'https://{0}.s3.amazonaws.com/'.format(AWS_STORAGE_BUCKET_NAME)
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
+AWS_STATIC_DIR = 'static'
+STATIC_URL = AWS_S3_URL + AWS_STATIC_DIR + '/'
+STATICFILES_STORAGE = 'matching.storage.StaticRootS3BotoStorage'
 
-STATIC_URL = '/static/'
+AWS_MEDIA_DIR = 'media'
+MEDIA_URL = AWS_S3_URL + AWS_MEDIA_DIR + '/'
+DEFAULT_FILE_STORAGE = 'matching.storage.MediaRootS3BotoStorage'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'matching/static'),
 )
-
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'matching/media')

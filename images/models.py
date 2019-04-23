@@ -60,7 +60,6 @@ class Item(models.Model):
         return self.name
 
     def as_json(self):
-        print(self.image.url)
         return dict(
             id=self.id,
             image=self.image.url,

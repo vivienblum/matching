@@ -41,9 +41,7 @@ def get_average_color(image):
     return avg_color
 
 def pixelate(match):
-    pathImage = "https://match-images.herokuapp.com" + match.image.url
-    print(pathImage)
-    image = _grab_image(url=pathImage)
+    image = _grab_image(url=match.image.url)
     h = image.shape[0]
     w = image.shape[1]
 
