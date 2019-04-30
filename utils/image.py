@@ -8,7 +8,7 @@ from celery import shared_task
 import codecs, json
 from django.core import serializers
 
-MAX_SIZE = 10000
+MAX_SIZE = 100000
 
 def _grab_image(path=None, stream=None, url=None):
 	# if the path is not None, then load the image from disk
