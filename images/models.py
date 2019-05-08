@@ -18,10 +18,6 @@ class Collection(models.Model):
     def __str__(self):
         return self.name
 
-    def get_delta(self):
-        size = self.items.count()
-        return 'self.name'
-
 class ItemManager(models.Manager):
     def get_item_color(self, color, collection, delta):
         if delta == None:

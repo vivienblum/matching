@@ -21,9 +21,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8m(qsb4kpb#9=%420-=9-p(w$6kx=$yn9mrz6cb+z2&c&01rz6'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -150,8 +147,6 @@ USE_L10N = True
 USE_TZ = True
 
 AWS_STORAGE_BUCKET_NAME = 'match-images-assets'
-AWS_ACCESS_KEY_ID = 'AKIAUZOFMDIJ2QD27H63'
-AWS_SECRET_ACCESS_KEY = '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'
 AWS_S3_HOST = 's3.eu-west-3.amazonaws.com'
 AWS_S3_URL = 'https://{0}.s3.amazonaws.com/'.format(AWS_STORAGE_BUCKET_NAME)
 
