@@ -12,6 +12,7 @@ DELTA = 25
 class Collection(models.Model):
     name = models.CharField(max_length=100)
     available = models.BooleanField(default=True)
+    delta = models.SmallIntegerField(default=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

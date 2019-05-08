@@ -3,7 +3,7 @@ import numpy as np
 import urllib
 import urllib.request
 import cv2
-from images.models import Item, Match
+from images.models import Item, Match, Collection
 from celery import shared_task
 import codecs, json
 from django.core import serializers
@@ -72,7 +72,7 @@ def match_images(id):
     match = Match.objects.get(pk=id)
     image = pixelate(match)
     collection = match.collection
-    delta = match.delta
+    delta = Collection.objects.get(pk=collection).delta
 
     h = image.shape[0]
     w = image.shape[1]
