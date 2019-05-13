@@ -72,7 +72,7 @@ def match_images(id):
     match = Match.objects.get(pk=id)
     image = pixelate(match)
     collection = match.collection
-    delta = Collection.objects.get(pk=collection).delta
+    delta = match.collection.delta
 
     h = image.shape[0]
     w = image.shape[1]
