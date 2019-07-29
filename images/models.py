@@ -55,6 +55,7 @@ class Item(models.Model):
     green = models.SmallIntegerField(null=True, blank=True)
     red = models.SmallIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    quantity = 1
     objects = ItemManager()
 
     def __str__(self):
@@ -67,7 +68,8 @@ class Item(models.Model):
             name=self.name,
             blue=self.blue,
             green=self.green,
-            red=self.red)
+            red=self.red,
+            quantity=self.quantity)
 
 class Match(models.Model):
     image = models.ImageField(upload_to='match_image')

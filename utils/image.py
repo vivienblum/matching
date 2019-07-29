@@ -91,6 +91,9 @@ def match_images(id):
             if item != None:
                 if item not in items:
                     items.append(item)
+                else:
+                    item_to_inc_quantity = next((el for el in items if el.id == item.id), None)
+                    item_to_inc_quantity.quantity = item_to_inc_quantity.quantity+1
                 pattern[y, x] = item.id
             else:
                 pattern[y, x] = -1
