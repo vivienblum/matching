@@ -13,7 +13,7 @@ MAX_SIZE = 100000
 def _grab_image(path=None, stream=None, url=None):
 	# if the path is not None, then load the image from disk
 	if path is not None:
-		image = cv2.imread(path)
+		image = cv2.imread(path, cv2.IMREAD_UNCHANGED)
 
 	# otherwise, the image does not reside on disk
 	else:
@@ -29,14 +29,28 @@ def _grab_image(path=None, stream=None, url=None):
 		# convert the image to a NumPy array and then read it into
 		# OpenCV format
 		image = np.asarray(bytearray(data), dtype="uint8")
-		image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+		image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
 
 	return image
 
 def get_average_color(image):
     image = _grab_image(stream=image)
-    avg_color_per_row = np.average(image, axis=0)
-    avg_color = np.average(avg_color_per_row, axis=0)
+    h = image.shape[0]
+    w = image.shape[1]
+    r = 0
+    g = 0
+    b = 0
+    n = 0
+    for y in range(0, h):
+        for x in range(0, w):
+            if image[y, x][3] != 0:
+                n += 1
+                r += image[y, x][0]
+                g += image[y, x][1]
+                b += image[y, x][2]
+                print(image[y, x])
+
+    avg_color = [r/(n), g/(n), b/(n)]
 
     return avg_color
 
