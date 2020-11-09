@@ -33,18 +33,26 @@ class ItemManager(models.Manager):
             .filter(green__gte=color[1] - delta )
             .filter(red__lte=color[2] + delta )
             .filter(red__gte=color[2] - delta)
+            .order_by('popularity')
         )
         # Find the closest
         best_item = None
+        best_popularity = 0
         min = 255
         for item in items_match:
             default_blue = abs(item.blue - color[0])
             default_green = abs(item.green - color[1])
             default_red = abs(item.red - color[2])
             default = default_blue + default_green + default_red
-            if default <= min:
-                min = default
-                best_item = item
+            if collection.has_popularity:
+                if default <= min and item.popularity > best_popularity:
+                    min = default
+                    best_popularity = item.popularity
+                    best_item = item
+            else:
+                if default <= min:
+                    min = default
+                    best_item = item
 
         return best_item
 
