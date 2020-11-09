@@ -16,11 +16,19 @@ class CollectionViewSet(NestedViewSetMixin, ModelViewSet):
     queryset = Collection.objects.all()
 
     filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('name', 'available')
+    filterset_fields = ('name', 'available', 'has_popularity')
 
 class ItemViewSet(NestedViewSetMixin, ModelViewSet):
     serializer_class = ItemSerializer
     queryset = Item.objects.all()
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.name = request.data.get("name", instance.name)
+        instance.popularity = request.data.get("popularity", instance.popularity)
+        instance.save()
+
+        return Response(instance.as_json())
 
 class MatchViewSet(ModelViewSet):
     serializer_class = MatchSerializer
