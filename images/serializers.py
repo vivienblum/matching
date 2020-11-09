@@ -13,7 +13,7 @@ class CollectionSerializer(ModelSerializer):
 class ItemSerializer(ModelSerializer):
     class Meta:
         model = Item
-        fields = ('id', 'name', 'image', 'collection', 'blue', 'green', 'red')
+        fields = ('id', 'name', 'image', 'collection', 'blue', 'green', 'red', 'popularity')
 
     def create(self, validated_data):
         item = Item(**validated_data)

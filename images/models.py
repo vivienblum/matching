@@ -55,6 +55,7 @@ class Item(models.Model):
     blue = models.SmallIntegerField(null=True, blank=True)
     green = models.SmallIntegerField(null=True, blank=True)
     red = models.SmallIntegerField(null=True, blank=True)
+    popularity = models.SmallIntegerField(default=5)
     created_at = models.DateTimeField(auto_now_add=True)
     quantity = 1
     objects = ItemManager()
@@ -70,6 +71,7 @@ class Item(models.Model):
             blue=self.blue,
             green=self.green,
             red=self.red,
+            popularity=self.popularity,
             quantity=self.quantity)
 
 class Match(models.Model):
