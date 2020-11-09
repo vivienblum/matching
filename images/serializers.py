@@ -8,7 +8,7 @@ from .models import Collection, Item, Match
 class CollectionSerializer(ModelSerializer):
     class Meta:
         model = Collection
-        fields = ('id', 'name', 'available', 'delta')
+        fields = ('id', 'name', 'available', 'has_popularity', 'delta')
 
 class ItemSerializer(ModelSerializer):
     class Meta:

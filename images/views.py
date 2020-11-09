@@ -16,7 +16,7 @@ class CollectionViewSet(NestedViewSetMixin, ModelViewSet):
     queryset = Collection.objects.all()
 
     filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('name', 'available')
+    filterset_fields = ('name', 'available', 'has_popularity')
 
 class ItemViewSet(NestedViewSetMixin, ModelViewSet):
     serializer_class = ItemSerializer
