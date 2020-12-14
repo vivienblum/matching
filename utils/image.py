@@ -48,7 +48,6 @@ def get_average_color(image):
                 r += image[y, x][0]
                 g += image[y, x][1]
                 b += image[y, x][2]
-                print(image[y, x])
 
     avg_color = [r/(n), g/(n), b/(n)]
 
