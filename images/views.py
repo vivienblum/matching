@@ -20,7 +20,7 @@ class CollectionViewSet(NestedViewSetMixin, ModelViewSet):
 
 class ItemViewSet(NestedViewSetMixin, ModelViewSet):
     serializer_class = ItemSerializer
-    queryset = Item.objects.all()
+    queryset = Item.objects.all().order_by('name')
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
